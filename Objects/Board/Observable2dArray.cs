@@ -38,44 +38,6 @@ namespace Chess_Educational_Project
                 }
             }
         }
-        /// <summary>
-        /// The indexer for the data inside the class.
-        /// </summary>
-        /// <param name="y">The y index of the data to be accessed or changed.</param>
-        /// <param name="x">The x index of the data to be accessed or changed</param>
-        /// <returns></returns>
-        /// <exception cref="IndexOutOfRangeException">Is thrown when the any of the indexers are < 0, or >= the max size for that respective dimension</exception>
-        public T this[int y, int x]
-        {
-            get
-            {
-                
-                if (y >= 0 && y < ySize && x >= 0 && x < xSize)
-                {
-                    //If the index is inside the bounds, we return the value.
-                    return data[y][x];
-                }
-                else
-                {
-                    //Else we throw an appropriate exception.
-                    throw new IndexOutOfRangeException();
-                }
-            }
-            set
-            {
-                
-                if (y >= 0 && y < ySize && x >= 0 && x < xSize)
-                {
-                    //If the index is inside the bounds, we allow them to change the value.
-                    data[y][x] = value;
-                }
-                else
-                {
-                    //Else we throw an appropriate exception.
-                    throw new IndexOutOfRangeException();
-                }
-                    
-            }
-        }
+        
     }
 }

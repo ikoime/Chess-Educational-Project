@@ -33,10 +33,9 @@
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
-                                <!--This DataTemplate is for each of the squares on the board. Both images are bound to the piece.-->
+                                <!--This DataTemplate is for each of the pieces on the board. -->
                                 <DataTemplate>
                                     <Grid>
-                                        <Image x:Name="img_Square" Source="{Binding}"/>
                                         <Image x:Name="img_Piece" Source="{Binding}"/>
                                     </Grid>
                                 </DataTemplate>
@@ -45,7 +44,14 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
+
+            <Grid x:Name="grd_Squares">
                 
+            </Grid>
+            
+            
+            
+            
             <Grid Grid.Column="2">
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
