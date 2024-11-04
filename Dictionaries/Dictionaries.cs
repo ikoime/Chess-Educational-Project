@@ -17,8 +17,8 @@ namespace Chess_Educational_Project
     {
         public static Dictionary<SquareColour, string> squareColourToImage = new Dictionary<SquareColour, string>()
         {
-            { SquareColour.White, "Images/White_Square.png" },
-            { SquareColour.Black,"Images/Black_Square.png" }
+            { SquareColour.White, "pack://siteoforigin:,,,/Images/White_Square.png" },
+            { SquareColour.Black,"pack://siteoforigin:,,,/Images/Black_Square.png" }
         };
     }
 }

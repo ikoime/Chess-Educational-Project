@@ -44,15 +44,15 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
+            <Grid x:Name="grd_Squares" >
 
-            <Grid x:Name="grd_Squares">
-                
             </Grid>
-            
-            
-            
-            
-            <Grid Grid.Column="2">
+
+
+
+
+
+            <Grid Grid.Column="2" >
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
                     <RowDefinition Height="4*"></RowDefinition>
@@ -66,6 +66,9 @@
                 <Border BorderThickness="2" Grid.Row="2" BorderBrush="Black">
                     <TextBlock x:Name="txt_ClockWhite" Style="{StaticResource Clock}" Text="5:00" />
                 </Border>
+                
+
+
 
             </Grid>
         </Grid>
