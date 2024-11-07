@@ -21,10 +21,6 @@ namespace Chess_Educational_Project
     /// </summary>
     public abstract class Piece
     {
-        /// <summary>
-        /// The position of the piece on the board.
-        /// </summary>
-        public Vector2 pos;
 
         /// <summary>
         /// The colour of the piece. 
@@ -35,7 +31,10 @@ namespace Chess_Educational_Project
         /// A function which returns a list of valid moves.
         /// </summary>
         /// <param name="board">The parent board which the piece is placed on.</param>
-        public abstract void GetMoves(Board board);
+        /// <param name="pos">The position of the piece on the board.</param>
+        public abstract void GetMoves(Board board,Vector2 pos);
+
+        
     }
     
     

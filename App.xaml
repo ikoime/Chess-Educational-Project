@@ -7,12 +7,14 @@
         <!--This style is for the clocks.-->
         <Style TargetType="{x:Type TextBlock}" x:Key="Clock">
             <Style.Setters>
-                <Setter Property="Background" Value="Gray"/>
-                <Setter Property="Foreground" Value="Black"/>
-                <Setter Property="FontSize" Value="48"/>
+                <Setter Property="FontSize" Value="20"/>
                 <Setter Property="TextAlignment" Value="Center"/>
                 <Setter Property="FontWeight" Value="Bold"/>
             </Style.Setters>
         </Style>
+        
+        <!--All of the converters we will use in the project -->
+        <local:SquareConverter x:Key="SquareConverter"/>
+        <local:PieceConverter x:Key="PieceConverter"/>
     </Application.Resources>
 </Application>

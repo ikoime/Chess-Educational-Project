@@ -5,38 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Chess_Educational_Project"
         mc:Ignorable="d"
-        Title="Chess" Height="450" Width="800" Background="DarkGray" WindowStartupLocation="CenterScreen">
+        Title="Chess" Height="430" Width="630" Background="CornflowerBlue" WindowStartupLocation="CenterScreen">
     <!--This is the border for the whole window. It means that UI elemnts are positioned, at minimum, 15px away from the edge of the window.-->
     <Border Margin="15">
         <!--The base grid for the whole window.-->
         <Grid>
             <Grid.ColumnDefinitions>
-                <!--The grid contains 3 columns, in the ratio 6 : 1 : 4-->
-                <ColumnDefinition Width="6*"></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition Width="4*"></ColumnDefinition>
+                <!--The grid contains 3 columns, in the ratio 6 : 1 : 2-->
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="0.2*"></ColumnDefinition>
+                <ColumnDefinition Width="0.8*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <!--The chessboard.-->
             <ItemsControl x:Name="itc_ChessBoard">
                 <ItemsControl.ItemsPanel>
                     <!--This panel creates all of the rows.-->
                     <ItemsPanelTemplate>
-                        <StackPanel Orientation="Vertical"/>
+                        <UniformGrid Rows="8"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <ItemsControl>
+                        <ItemsControl ItemsSource="{Binding}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <StackPanel/>
+                                    <UniformGrid Columns="8"/>
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <!--This DataTemplate is for each of the pieces on the board. -->
                                 <DataTemplate>
                                     <Grid>
-                                        <Image x:Name="img_Piece" Source="{Binding}"/>
+                                        <Rectangle x:Name="rct_Square" Fill="{Binding pos, Converter={StaticResource SquareConverter}}"/>
+                                        <Image Source="{Binding piece,Converter={StaticResource PieceConverter}}"/>
                                     </Grid>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
@@ -44,9 +45,7 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-            <Grid x:Name="grd_Squares" >
-
-            </Grid>
+            
 
 
 
@@ -55,16 +54,16 @@
             <Grid Grid.Column="2" >
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
-                    <RowDefinition Height="4*"></RowDefinition>
+                    <RowDefinition Height="8*"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <!--Both the TextBlocks which act as the clocks-->
-                <Border BorderThickness="2" BorderBrush="Black">
-                    <TextBlock x:Name="txt_ClockBlack" Style="{StaticResource Clock}" Text="5:00"/>
+                <Border BorderThickness="2" BorderBrush="White">
+                    <TextBlock x:Name="txt_ClockBlack" Style="{StaticResource Clock}" Text="5:00" Background="Black" Foreground="White"/>
                 </Border>
 
                 <Border BorderThickness="2" Grid.Row="2" BorderBrush="Black">
-                    <TextBlock x:Name="txt_ClockWhite" Style="{StaticResource Clock}" Text="5:00" />
+                    <TextBlock x:Name="txt_ClockWhite" Style="{StaticResource Clock}" Text="5:00" Background="White"/>
                 </Border>
                 
 

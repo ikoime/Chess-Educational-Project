@@ -9,14 +9,13 @@ namespace Chess_Educational_Project
 {
     public class Queen : Piece
     {
-        ///<inheritdoc cref="Pawn(Vector2, PieceColour)"/>
-        public Queen(Vector2 pos, PieceColour colour)
+        ///<inheritdoc cref="Pawn(PieceColour)"/>
+        public Queen(PieceColour colour)
         {
-            this.pos = pos;
             this.colour = colour;
         }
         ///<inheritdoc/>
-        public override void GetMoves(Board board)
+        public override void GetMoves(Board board, Vector2 pos)
         {
             throw new NotImplementedException();
         }

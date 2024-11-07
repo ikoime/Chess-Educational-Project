@@ -10,11 +10,61 @@
 
   <ItemGroup>
     <None Remove="Images\Black_Square.png" />
+    <None Remove="Images\cburnett\bB.png" />
+    <None Remove="Images\cburnett\bB.svg" />
+    <None Remove="Images\cburnett\bK.png" />
+    <None Remove="Images\cburnett\bK.svg" />
+    <None Remove="Images\cburnett\bN.png" />
+    <None Remove="Images\cburnett\bP.png" />
+    <None Remove="Images\cburnett\bQ.png" />
+    <None Remove="Images\cburnett\bR.png" />
+    <None Remove="Images\cburnett\wB.png" />
+    <None Remove="Images\cburnett\wK.png" />
+    <None Remove="Images\cburnett\wN.png" />
+    <None Remove="Images\cburnett\wP.png" />
+    <None Remove="Images\cburnett\wQ.png" />
+    <None Remove="Images\cburnett\wR.png" />
     <None Remove="Images\White_Square.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="Images\Black_Square.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\cburnett\bB.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\cburnett\bK.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\cburnett\bN.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\cburnett\bP.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\cburnett\bQ.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\cburnett\bR.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\cburnett\wB.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\cburnett\wK.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\cburnett\wN.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\cburnett\wP.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\cburnett\wQ.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\cburnett\wR.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\White_Square.png">

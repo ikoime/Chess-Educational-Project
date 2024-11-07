@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Markup;
@@ -16,7 +17,7 @@ namespace Chess_Educational_Project
         /// <summary>
         /// The data structure holding all of the data.
         /// </summary>
-        public ObservableCollection<ObservableCollection<Piece>> pieces = new ObservableCollection<ObservableCollection<Piece>>();
+        public ObservableCollection<ObservableCollection<Square>> pieces = new ObservableCollection<ObservableCollection<Square>>();
         /// <summary>
         /// The maximum xSize. By default, its set to 8.
         /// </summary>
@@ -32,6 +33,7 @@ namespace Chess_Educational_Project
         {
             Setup();       
             //Setup default pieces.
+            DefaultLayout();
         }
         /// <summary>
         /// Creates a board of a defined size.
@@ -51,7 +53,7 @@ namespace Chess_Educational_Project
         /// <param name="x">The x index of the data to be accessed or changed</param>
         /// <returns></returns>
         /// <exception cref="IndexOutOfRangeException">Is thrown when the any of the indexers are < 0, or >= the max size for that respective dimension</exception>
-        public Piece this[int y, int x]
+        public Square this[int y, int x]
         {
             get
             {
@@ -88,13 +90,76 @@ namespace Chess_Educational_Project
         {
             for (int i = 0; i < xSize; i++)
             {
-                pieces.Add(new ObservableCollection<Piece>());
+                pieces.Add(new ObservableCollection<Square>());
                 for (int j = 0; j < ySize; j++)
                 {
                     //Adding elements to our enumerable to simulate array indexing.
-                    pieces[i].Add(default);
+                    pieces[i].Add(new Square(new Vector2(j,i)));
                 }
             }
+        }
+
+        public void DefaultLayout()
+        {
+            if (xSize == 8 && ySize == 8)
+            {
+                for (int i = 1; i < 8; i += 5)
+                {
+                    for (int j = 0; j < 8; j++)
+                    {
+                        this[i, j].piece = new Pawn(i == 6 ? PieceColour.White : PieceColour.Black);
+                    }
+                }
+                for (int i = 0; i < 8; i += 7)
+                {
+                    PieceColour pieceColour = (i == 7? PieceColour.White : PieceColour.Black);
+                    this[i, 0].piece = new Rook(pieceColour);
+                    this[i, 7].piece = new Rook(pieceColour);
+                    this[i,1].piece = new Knight(pieceColour);
+                    this[i, 6].piece = new Knight(pieceColour);
+                    this[i,2].piece = new Bishop(pieceColour);
+                    this[i, 5].piece = new Bishop(pieceColour);
+                    this[i, 3].piece = new Queen(pieceColour);
+                    this[i, 4].piece = new King(pieceColour);
+                }
+            }
+            else
+            {
+                throw new Exception("The xSize and ySize must be 8 to perform a default setup");
+            }
+        }
+    }
+    /// <summary>
+    /// The class used as an interface for bindings with the board UI element.
+    /// </summary>
+    public class Square
+    {
+        /// <summary>
+        /// The piece on the square. It is nullable since a square can contain no pieces.
+        /// </summary>
+        public Piece? piece { get; set; }
+
+        /// <summary>
+        /// The position of the square on the parent board.
+        /// </summary>
+        public Vector2 pos { get; set; }
+        /// <summary>
+        /// The constructor used when declaring a square object.
+        /// </summary>
+        /// <param name="pos"><inheritdoc cref="Square.pos"/></param>
+        public Square(Vector2 pos)
+        {
+            this.pos = pos;
+        }
+        /// <summary>
+        /// An optional constructor used to fully define a square.
+        /// </summary>
+        /// <param name="pos"><inheritdoc cref="Square.pos"/></param>
+        /// <param name="piece"><inheritdoc cref="Square.piece"/></param>
+        public Square(Vector2 pos, Piece piece)
+        {
+            this.piece = piece;
+            this.pos = pos;
         }
     }
 }
