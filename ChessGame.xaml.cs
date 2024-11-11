@@ -30,7 +30,6 @@ namespace Chess_Educational_Project
             InitializeComponent();
             //SetupGrid();
             Board board = new Board();
-            board[6, 0] = new Square(new Vector2(6,0),new Pawn(PieceColour.White));
             itc_ChessBoard.ItemsSource = board.pieces;
             
         }

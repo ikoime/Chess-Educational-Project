@@ -98,7 +98,10 @@ namespace Chess_Educational_Project
                 }
             }
         }
-
+        /// <summary>
+        /// Adds the default starting position to the board.
+        /// </summary>
+        /// <exception cref="Exception">This exception will be ran if the xSize and ySize aren't 8.</exception>
         public void DefaultLayout()
         {
             if (xSize == 8 && ySize == 8)

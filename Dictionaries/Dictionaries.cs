@@ -28,6 +28,9 @@ namespace Chess_Educational_Project
             { SquareColour.White, new SolidColorBrush(new Color(){A=255,R = 239, G = 216, B = 180 }) },
             { SquareColour.Black, new SolidColorBrush(new Color(){A=255,R = 180, G = 135, B = 98  }) }
         };
+        /// <summary>
+        /// A dictionary used for converting piece types and colours into images.
+        /// </summary>
         public static Dictionary<(Type, PieceColour), string> pieceToImage = new Dictionary<(Type, PieceColour), string>()
         {
             { (typeof(Pawn),PieceColour.White), "pack://siteoforigin:,,,/Images/cburnett/wP.png"},
