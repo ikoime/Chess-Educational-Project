@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Chess_Educational_Project"
+        xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
         mc:Ignorable="d"
         Title="Chess" Height="430" Width="630" Background="CornflowerBlue" WindowStartupLocation="CenterScreen">
     <!--This is the border for the whole window. It means that UI elemnts are positioned, at minimum, 15px away from the edge of the window.-->
@@ -17,7 +18,7 @@
                 <ColumnDefinition Width="0.8*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <!--The chessboard.-->
-            <ItemsControl x:Name="itc_ChessBoard">
+            <ItemsControl x:Name="itc_ChessBoard" >
                 <ItemsControl.ItemsPanel>
                     <!--This panel creates all of the rows.-->
                     <ItemsPanelTemplate>
@@ -26,7 +27,7 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <ItemsControl ItemsSource="{Binding}">
+                        <ItemsControl ItemsSource="{Binding}" dd:DragDrop.IsDropTarget="True">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <UniformGrid Columns="{Binding Count}"/>
@@ -38,9 +39,16 @@
                                     <Grid>
                                         <Rectangle x:Name="rct_Square" Fill="{Binding pos, Converter={StaticResource SquareConverter}}"/>
                                         <Image Source="{Binding piece,Converter={StaticResource PieceConverter}}"/>
+                                        <Image Source="{Binding isLegalMove}"/>
+
                                     </Grid>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
+                            <ItemsControl.Resources>
+                                <Style TargetType="{x:Type Image}">
+                                    <Setter Property="AllowDrop" Value="True"/>
+                                </Style>
+                            </ItemsControl.Resources>
                         </ItemsControl>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

@@ -40,8 +40,13 @@ namespace Chess_Educational_Project
         /// </summary>
         /// <param name="x">The maximum xSize.</param>
         /// <param name="y">The maximum ySize.</param>
+        /// <exception cref="ArgumentException">Is thrown when xSize or ySize <= 0</exception>
         public Board(int x, int y)
         {
+            if (x <= 0 || y <= 0)
+            {
+                throw new ArgumentException("xSize and ySize should be non-zero, positive integers.");
+            }
             this.xSize = x;
             this.ySize = y;
             Setup();
@@ -146,6 +151,10 @@ namespace Chess_Educational_Project
         /// The position of the square on the parent board.
         /// </summary>
         public Vector2 pos { get; set; }
+        /// <summary>
+        /// A property used for binding when displaying legal moves.
+        /// </summary>
+        public bool isLegalMove { get; set; } = false;
         /// <summary>
         /// The constructor used when declaring a square object.
         /// </summary>
