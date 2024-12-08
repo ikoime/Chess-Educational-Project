@@ -21,12 +21,8 @@ namespace Chess_Educational_Project
             Piece piece = (Piece?)value;
             if (piece is not null)
             {
-                Dictionaries.pieceToImage.TryGetValue((piece.GetType(), piece.colour), out string packUri);
-                BitmapImage tempImage = new BitmapImage();
-                tempImage.BeginInit();
-                tempImage.UriSource = new Uri(packUri,UriKind.Absolute);
-                tempImage.EndInit();
-                return tempImage;
+                Resources.pieceToImage.TryGetValue((piece.GetType(), piece.colour), out string packUri);
+                return Resources.CreateImageSource(packUri);
             }
             return null;
             

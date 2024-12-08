@@ -23,7 +23,7 @@ namespace Chess_Educational_Project
         {
             Vector2 pos = (Vector2)value;
             //Gets the value of the light and dark squares respectively from the dictionaries. This means I can change the square colour in one place.
-            Dictionaries.squareColourToColour.TryGetValue((SquareColour)((pos.X + pos.Y) % 2), out SolidColorBrush colour);
+            Resources.squareColourToColour.TryGetValue((SquareColour)((pos.X + pos.Y) % 2), out SolidColorBrush colour);
             return colour;
             //return (pos.X + pos.Y) % 2 == 0 ? Brushes.Red : Brushes.Black;
         }

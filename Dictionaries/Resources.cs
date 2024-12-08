@@ -4,25 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace Chess_Educational_Project
 {
     public enum SquareColour
     {
-        White = 0,
-        Black = 1
+        White,
+        Black
+    }
+    public enum MiscResources
+    {
+        ValidMove
     }
 
     /// <summary>
     /// A class containing all of the dictionaries which need to be used for bindings or conversions. Acts as a central location to change images etc.
     /// </summary>
-    public static class Dictionaries
+    public static class Resources
     {
-        public static Dictionary<SquareColour, string> squareColourToImage = new Dictionary<SquareColour, string>()
-        {
-            { SquareColour.White, "pack://siteoforigin:,,,/Images/White_Square.png" },
-            { SquareColour.Black,"pack://siteoforigin:,,,/Images/Black_Square.png" }
-        };
         public static Dictionary<SquareColour, SolidColorBrush> squareColourToColour = new Dictionary<SquareColour, SolidColorBrush>()
         {
             { SquareColour.White, new SolidColorBrush(new Color(){A=255,R = 239, G = 216, B = 180 }) },
@@ -51,5 +51,21 @@ namespace Chess_Educational_Project
             { (typeof(King), PieceColour.White), "pack://siteoforigin:,,,/Images/cburnett/wK.png"},
             { (typeof(King),PieceColour.Black), "pack://siteoforigin:,,,/Images/cburnett/bK.png"}
         };
+        /// <summary>
+        /// A dictionary used for the image packUris for any resources which dont fit into any of the other dictionaries.
+        /// </summary>
+        public static Dictionary<MiscResources, string> miscResources = new Dictionary<MiscResources, string>()
+        {
+            { MiscResources.ValidMove,"pack://siteoforigin:,,,/Images/cburnett" }
+        };
+
+        public static BitmapImage CreateImageSource(string source)
+        {
+            BitmapImage tempImage = new BitmapImage();
+            tempImage.BeginInit();
+            tempImage.UriSource = new Uri(source, UriKind.Absolute);
+            tempImage.EndInit();
+            return tempImage;
+        }
     }
 }
