@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Numerics;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Markup;
@@ -140,12 +142,25 @@ namespace Chess_Educational_Project
     /// <summary>
     /// The class used as an interface for bindings with the board UI element.
     /// </summary>
-    public class Square
+    public class Square : INotifyPropertyChanged
     {
         /// <summary>
         /// The piece on the square. It is nullable since a square can contain no pieces.
         /// </summary>
-        public Piece? piece { get; set; }
+        public Piece? piece
+        {
+            get
+            {
+                return _piece;
+            }
+            set
+            {
+                _piece = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private Piece? _piece;
 
         /// <summary>
         /// The position of the square on the parent board.
@@ -154,7 +169,20 @@ namespace Chess_Educational_Project
         /// <summary>
         /// A property used for binding when displaying legal moves.
         /// </summary>
-        public bool isLegalMove { get; set; } = false;
+        public bool isLegalMove
+        {
+            get
+            {
+                return _isLegalMove;
+            }
+            set
+            {
+                _isLegalMove = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _isLegalMove;
         /// <summary>
         /// The constructor used when declaring a square object.
         /// </summary>
@@ -172,6 +200,12 @@ namespace Chess_Educational_Project
         {
             this.piece = piece;
             this.pos = pos;
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

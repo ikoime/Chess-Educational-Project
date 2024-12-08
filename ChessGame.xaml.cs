@@ -32,7 +32,10 @@ namespace Chess_Educational_Project
             //SetupGrid();
             Board board = new Board();
             itc_ChessBoard.ItemsSource = board.pieces;
-            
+
+            //Testing
+            board[4, 4].piece = new Pawn(PieceColour.White);
+            board[4,4].isLegalMove = true;
         }
 
         private void Image_MouseMove(object sender, MouseEventArgs e)

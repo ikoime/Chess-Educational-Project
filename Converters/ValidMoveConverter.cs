@@ -5,9 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
+using System.Windows.Media.Imaging;
 
-namespace Chess_Educational_Project.Converters
+namespace Chess_Educational_Project
 {
+    [ValueConversion(typeof(bool),typeof(BitmapImage))]
     public class ValidMoveConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

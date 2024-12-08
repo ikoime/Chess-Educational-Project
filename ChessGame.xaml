@@ -39,7 +39,7 @@
                                     <Grid>
                                         <Rectangle x:Name="rct_Square" Fill="{Binding pos, Converter={StaticResource SquareConverter}}"/>
                                         <Image Source="{Binding piece,Converter={StaticResource PieceConverter}}"/>
-                                        <Image Source="{Binding isLegalMove}"/>
+                                        <Image Source="{Binding isLegalMove,Converter={StaticResource ValidMoveConverter}}" Opacity="0.6"/>
 
                                     </Grid>
                                 </DataTemplate>

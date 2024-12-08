@@ -16,5 +16,6 @@
         <!--All of the converters we will use in the project -->
         <local:SquareConverter x:Key="SquareConverter"/>
         <local:PieceConverter x:Key="PieceConverter"/>
+        <local:ValidMoveConverter x:Key="ValidMoveConverter"/>
     </Application.Resources>
 </Application>

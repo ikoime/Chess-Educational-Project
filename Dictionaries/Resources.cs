@@ -56,7 +56,7 @@ namespace Chess_Educational_Project
         /// </summary>
         public static Dictionary<MiscResources, string> miscResources = new Dictionary<MiscResources, string>()
         {
-            { MiscResources.ValidMove,"pack://siteoforigin:,,,/Images/cburnett" }
+            { MiscResources.ValidMove,"pack://siteoforigin:,,,/Images/move.png" }
         };
 
         public static BitmapImage CreateImageSource(string source)
