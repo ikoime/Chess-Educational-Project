@@ -26,30 +26,63 @@ namespace Chess_Educational_Project
     {
         public int xSize = 8;
         public int ySize = 8;
+        public Board board;
+        public List<Move> lastLegalMoves;
         public ChessGame()
         {
             InitializeComponent();
             //SetupGrid();
-            Board board = new Board();
+            board = new Board();
             itc_ChessBoard.ItemsSource = board.pieces;
-
-            //Testing
-            board[4, 4].piece = new Pawn(PieceColour.White);
-            board[4,4].isLegalMove = true;
         }
 
-        private void Image_MouseMove(object sender, MouseEventArgs e)
+        
+
+        private void Piece_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Image image = sender as Image;
-            if (image is not null && e.LeftButton == MouseButtonState.Pressed)
+            //Starts by clearing all of the valid move indicators.
+            ResetMoves();
+            Image clickedImage = sender as Image;
+            Square square = clickedImage.DataContext as Square;
+            Piece clickedPiece = square.piece;
+            if (clickedPiece is null)
             {
-                DragDrop.DoDragDrop(image,image.DataContext, DragDropEffects.Move);
+                //Should never occur.
+                return;
             }
+            else
+            {
+                //Getting all of the legal moves for that piece.
+                List<Move> legalMoves = clickedPiece.GetMoves(board,square.pos);
+                foreach (Move move in legalMoves)
+                {
+                    //Iterating through each of the moves in the legalMoves list in order to mark them on the board.
+                    board[(int)move.endPosition.Y, (int)move.endPosition.X].targetMove = move;
+                }
+                //Save the list to a temp variable.
+                lastLegalMoves = legalMoves;
+            }
+            
+
+        }
+        public void ResetMoves()
+        {
+            if (lastLegalMoves is not null)
+            {
+                foreach (Move move in lastLegalMoves)
+                {
+                    board[(int)move.endPosition.Y, (int)move.endPosition.X].targetMove = null;
+                }
+            }
+            
         }
 
-        private void txt_ClockWhite_Drop(object sender, DragEventArgs e)
+        private void Move_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
+            Image clickedMove = sender as Image;
+            Square square = clickedMove.DataContext as Square;
+            board.Move(square.targetMove);
+            ResetMoves();
         }
     }
 }

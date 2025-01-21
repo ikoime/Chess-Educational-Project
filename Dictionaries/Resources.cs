@@ -13,10 +13,7 @@ namespace Chess_Educational_Project
         White,
         Black
     }
-    public enum MiscResources
-    {
-        ValidMove
-    }
+    
 
     /// <summary>
     /// A class containing all of the dictionaries which need to be used for bindings or conversions. Acts as a central location to change images etc.
@@ -52,11 +49,12 @@ namespace Chess_Educational_Project
             { (typeof(King),PieceColour.Black), "pack://siteoforigin:,,,/Images/cburnett/bK.png"}
         };
         /// <summary>
-        /// A dictionary used for the image packUris for any resources which dont fit into any of the other dictionaries.
+        /// A dictionary used for the image packUris for moves.
         /// </summary>
-        public static Dictionary<MiscResources, string> miscResources = new Dictionary<MiscResources, string>()
+        public static Dictionary<MoveType, string> move = new Dictionary<MoveType, string>()
         {
-            { MiscResources.ValidMove,"pack://siteoforigin:,,,/Images/move.png" }
+            { MoveType.Default,"pack://siteoforigin:,,,/Images/move.png" },
+            { MoveType.Capture,"pack://siteoforigin:,,,/Images/capture.png" }
         };
 
         public static BitmapImage CreateImageSource(string source)

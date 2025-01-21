@@ -5,7 +5,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Chess_Educational_Project.Objects.Board
+namespace Chess_Educational_Project
 {
     /// <summary>
     /// The enum used for representing move types.
@@ -16,7 +16,8 @@ namespace Chess_Educational_Project.Objects.Board
         Capture,
         Check,
         EnPassant,
-        Castling
+        Castling,
+        Invalid
     }
     /// <summary>
     /// The data structure used to hold information about moves. 

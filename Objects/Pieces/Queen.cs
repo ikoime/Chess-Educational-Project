@@ -15,9 +15,21 @@ namespace Chess_Educational_Project
             this.colour = colour;
         }
         ///<inheritdoc/>
-        public override void GetMoves(Board board, Vector2 pos)
+        public override List<Move> GetMoves(Board board, Vector2 pos)
         {
-            throw new NotImplementedException();
+            List<Move> validMoves = new List<Move>();
+
+            board.LinearMove(colour, pos, new Vector2(1, 1), ref validMoves);
+            board.LinearMove(colour, pos, new Vector2(1, -1), ref validMoves);
+            board.LinearMove(colour, pos, new Vector2(-1, 1), ref validMoves);
+            board.LinearMove(colour, pos, new Vector2(-1, -1), ref validMoves);
+
+            board.LinearMove(colour, pos, new Vector2(0, 1), ref validMoves);
+            board.LinearMove(colour, pos, new Vector2(0, -1), ref validMoves);
+            board.LinearMove(colour, pos, new Vector2(1, 0), ref validMoves);
+            board.LinearMove(colour, pos, new Vector2(-1, 0), ref validMoves);
+
+            return validMoves;
         }
     }
 }

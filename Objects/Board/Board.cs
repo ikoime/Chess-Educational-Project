@@ -7,6 +7,7 @@ using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 using System.Windows.Markup;
 
 namespace Chess_Educational_Project
@@ -92,6 +93,35 @@ namespace Chess_Educational_Project
 
             }
         }
+        public Square this[Vector2 pos]
+        {
+            get
+            {
+                if (pos.Y >= 0 && pos.Y < ySize && pos.X >= 0 && pos.X < xSize)
+                {
+                    //If the index is inside the bounds, we return the value.
+                    return pieces[(int)pos.Y][(int)pos.X];
+                }
+                else
+                {
+                    //Else we throw an appropriate exception.
+                    throw new IndexOutOfRangeException();
+                }
+            }
+            set
+            {
+                if (pos.Y >= 0 && pos.Y < ySize && pos.X >= 0 && pos.X < xSize)
+                {
+                    //If the index is inside the bounds, we allow them to change the value.
+                    pieces[(int)pos.Y][(int)pos.X] = value;
+                }
+                else
+                {
+                    //Else we throw an appropriate exception.
+                    throw new IndexOutOfRangeException();
+                }
+            }
+        }
 
         private void Setup()
         {
@@ -138,6 +168,63 @@ namespace Chess_Educational_Project
                 throw new Exception("The xSize and ySize must be 8 to perform a default setup");
             }
         }
+        public void Move(Move move)
+        {
+            Square startingSquare = this[(int)move.startPosition.Y, (int)move.startPosition.X];
+            this[(int)move.endPosition.Y, (int)move.endPosition.X].piece = startingSquare.piece;
+            startingSquare.piece = null;
+        }
+        public bool IsOnBoard(Vector2 pos)
+        {
+            if (pos.X < 0 || pos.X >= xSize)
+            {
+                return false;
+            }
+            else if (pos.Y < 0 || pos.Y >= ySize)
+            {
+                return false;
+            }
+            return true;
+        }
+        public MoveType MoveTypeForMove(PieceColour colour, Vector2 pos)
+        {
+            PieceColour enemyColour = (colour == PieceColour.White ? PieceColour.Black : PieceColour.White);
+            
+            if (this[pos].piece is null)
+            {
+                return MoveType.Default;
+            }
+            else if (this[pos].piece.colour == enemyColour)
+            {
+                return MoveType.Capture;
+            }
+            //Temp
+            return MoveType.Invalid;
+        }
+        public void LinearMove(PieceColour colour, Vector2 pos, Vector2 direction, ref List<Move> validMoves)
+        {
+            int mag = 1;
+            while (true)
+            {
+                Vector2 targetPos = pos + mag * direction;
+                if (!IsOnBoard(targetPos))
+                {
+                    break;
+                }
+                MoveType moveType = MoveTypeForMove(colour, targetPos);
+                if (moveType == MoveType.Invalid)
+                {
+                    break;
+                }
+                validMoves.Add(new Move(pos, targetPos, moveType));
+                if (moveType == MoveType.Capture)
+                {
+                    break;
+                }
+                mag++;
+            }
+        }
+    
     }
     /// <summary>
     /// The class used as an interface for bindings with the board UI element.
@@ -169,20 +256,20 @@ namespace Chess_Educational_Project
         /// <summary>
         /// A property used for binding when displaying legal moves.
         /// </summary>
-        public bool isLegalMove
+        public Move? targetMove
         {
             get
             {
-                return _isLegalMove;
+                return _targetMove;
             }
             set
             {
-                _isLegalMove = value;
+                _targetMove = value;
                 OnPropertyChanged();
             }
         }
 
-        private bool _isLegalMove;
+        private Move? _targetMove;
         /// <summary>
         /// The constructor used when declaring a square object.
         /// </summary>

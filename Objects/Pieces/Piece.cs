@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -32,7 +33,8 @@ namespace Chess_Educational_Project
         /// </summary>
         /// <param name="board">The parent board which the piece is placed on.</param>
         /// <param name="pos">The position of the piece on the board.</param>
-        public abstract void GetMoves(Board board,Vector2 pos);
+        /// <returns>The List of all valid moves.</returns>
+        public abstract List<Move> GetMoves(Board board,Vector2 pos);
 
         
     }
