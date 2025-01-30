@@ -15,9 +15,18 @@ namespace Chess_Educational_Project
         Default,
         Capture,
         Check,
+
+        FirstPawnMove,
         EnPassant,
-        Castling,
-        Invalid
+
+        Promotion,
+        PromotionCapture,
+
+        ShortCastling,
+        LongCastling,
+
+        Invalid,
+        
     }
     /// <summary>
     /// The data structure used to hold information about moves. 

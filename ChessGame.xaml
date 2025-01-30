@@ -38,9 +38,10 @@
                                 <DataTemplate>
                                     <Grid>
                                         <Rectangle x:Name="rct_Square" Fill="{Binding pos, Converter={StaticResource SquareConverter}}"/>
+                                        <Rectangle x:Name="rct_IsSelected" Fill="OliveDrab" Opacity="0.4" Visibility="{Binding isSelected, Converter={StaticResource SelectionHighligtingConverter}}"/>
                                         <Image Source="{Binding piece,Converter={StaticResource PieceConverter}}" MouseDown="Piece_MouseDown"/>
                                         <Image Source="{Binding targetMove,Converter={StaticResource ValidMoveConverter}}" Opacity="0.6" MouseDown="Move_MouseDown"/>
-
+                                
                                     </Grid>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
@@ -67,11 +68,11 @@
                 </Grid.RowDefinitions>
                 <!--Both the TextBlocks which act as the clocks-->
                 <Border BorderThickness="2" BorderBrush="White">
-                    <TextBlock x:Name="txt_ClockBlack" Style="{StaticResource Clock}" Text="5:00" Background="Black" Foreground="White"/>
+                    <TextBlock x:Name="txt_ClockBlack" Style="{StaticResource Clock}" Text="{Binding blackTime,StringFormat=hh\\:mm\\:ss}" Background="Black" Foreground="White"/>
                 </Border>
 
                 <Border BorderThickness="2" Grid.Row="2" BorderBrush="Black">
-                    <TextBlock x:Name="txt_ClockWhite" Style="{StaticResource Clock}" Text="5:00" Background="White"/>
+                    <TextBlock x:Name="txt_ClockWhite" Style="{StaticResource Clock}" Text="{Binding whiteTime,StringFormat=hh\\:mm\\:ss}" Background="White"/>
                 </Border>
                 
 

@@ -40,7 +40,36 @@ namespace Chess_Educational_Project
 
                 }
             }
+            //castling
+            if (hasMoved == false)
+            {
+
+                if (board[7, (int)pos.Y].piece is not null && board[7, (int)pos.Y].piece.hasMoved == false &&CheckRow(board, (int)pos.X, 7, (int)pos.Y))
+                {
+                    validMoves.Add(new Move(pos, new Vector2(pos.X + 2, pos.Y),MoveType.ShortCastling));
+                }
+                if (board[1, (int)pos.Y].piece is not null && board[1, (int)pos.Y].piece.hasMoved == false && CheckRow(board, 1,(int)pos.X, (int)pos.Y))
+                {
+                    validMoves.Add(new Move(pos, new Vector2(pos.X - 2,pos.Y),MoveType.LongCastling));
+                }
+            }
+
+
+
             return validMoves;
         }
+        private bool CheckRow(Board board, int start, int end, int rank)
+        {
+            for (int i = start+1; i < end; i++)
+            {
+                if (board[rank,i].piece is not null)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
+   
+   
 }

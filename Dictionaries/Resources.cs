@@ -54,7 +54,18 @@ namespace Chess_Educational_Project
         public static Dictionary<MoveType, string> move = new Dictionary<MoveType, string>()
         {
             { MoveType.Default,"pack://siteoforigin:,,,/Images/move.png" },
-            { MoveType.Capture,"pack://siteoforigin:,,,/Images/capture.png" }
+
+            { MoveType.ShortCastling, "pack://siteoforigin:,,,/Images/move.png"},
+            { MoveType.LongCastling, "pack://siteoforigin:,,,/Images/move.png" },
+
+            { MoveType.Capture,"pack://siteoforigin:,,,/Images/capture.png" },
+
+            { MoveType.EnPassant,"pack://siteoforigin:,,,/Images/move.png" },
+            { MoveType.FirstPawnMove,"pack://siteoforigin:,,,/Images/move.png" },
+
+            { MoveType.Promotion, "pack://siteoforigin:,,,/Images/move.png" },
+            { MoveType.PromotionCapture,"pack://siteoforigin:,,,/Images/capture.png" }
+
         };
 
         public static BitmapImage CreateImageSource(string source)

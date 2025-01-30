@@ -27,7 +27,10 @@ namespace Chess_Educational_Project
         /// The colour of the piece. 
         /// </summary>
         public PieceColour colour;
-
+        /// <summary>
+        /// A boolean which tracks if the piece has moved. This is used for castling mostly.
+        /// </summary>
+        public bool hasMoved;
         /// <summary>
         /// A function which returns a list of valid moves.
         /// </summary>

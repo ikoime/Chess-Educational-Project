@@ -17,5 +17,8 @@
         <local:SquareConverter x:Key="SquareConverter"/>
         <local:PieceConverter x:Key="PieceConverter"/>
         <local:ValidMoveConverter x:Key="ValidMoveConverter"/>
+        <local:SelectionHighlightingConverter x:Key="SelectionHighligtingConverter"/>
+        <local:PromotionOptionConverter x:Key="PromotionOptionConverter"/>
+
     </Application.Resources>
 </Application>
