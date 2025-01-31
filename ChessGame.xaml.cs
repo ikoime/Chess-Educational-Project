@@ -18,6 +18,7 @@ using System.Windows.Shapes;
 using System.Threading;
 using System.Windows.Threading;
 using System.Collections.ObjectModel;
+using System.CodeDom;
 
 namespace Chess_Educational_Project
 {
@@ -60,6 +61,17 @@ namespace Chess_Educational_Project
             else
             {
                 board.blackTime -= TimeSpan.FromMilliseconds(100);
+            }
+
+            if (board.whiteTime == TimeSpan.Zero)
+            {
+                MessageBox.Show("White has lost on time");
+                Close();
+            }
+            if (board.blackTime == TimeSpan.Zero)
+            {
+                MessageBox.Show("Black has lost on time");
+                Close();
             }
         }
 
@@ -147,10 +159,15 @@ namespace Chess_Educational_Project
                 isInCheck = false;
             }
 
-            int numMoves = (board.pieces.SelectMany(x=>x).Where(x => x.piece is not null)).SelectMany(x => x.piece.GetMoves(board,x.pos)).Where(x => CheckLegality(x)).Count();
-            if (numMoves == 0)
+            int numMoves = (board.pieces.SelectMany(x => x).Where(x => x.piece is not null && x.piece.colour == turnColour)).SelectMany(x => x.piece.GetMoves(board, x.pos).Where(x => CheckLegality(x))).Count();
+            if (numMoves == 0 && isInCheck)
             {
-                MessageBox.Show("YE");
+                MessageBox.Show("Checkmate");
+                Close();
+            }
+            else if(numMoves == 0)
+            {
+                MessageBox.Show("Stalemate");
             }
         }
         private bool CheckLegality(Move move)
