@@ -20,6 +20,7 @@ namespace Chess_Educational_Project
         {
             List<Move> validMoves = new List<Move>();
 
+            //Checks in each of the diagonal directions.
             board.LinearMove(colour,pos, new Vector2(1, 1), ref validMoves);
             board.LinearMove(colour, pos, new Vector2(1, -1), ref validMoves);
             board.LinearMove(colour, pos, new Vector2(-1, 1), ref validMoves);

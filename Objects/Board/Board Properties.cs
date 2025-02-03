@@ -63,6 +63,9 @@ namespace Chess_Educational_Project
         public Vector2 whiteKingPos { get; private set; } = new Vector2(4, 7);
         public Vector2 blackKingPos { get; private set; } = new Vector2(4, 0);
 
+        public bool isInCheck { get; set; }
+        public PieceColour turnColour { get; set; }
+
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

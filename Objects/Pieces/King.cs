@@ -41,16 +41,42 @@ namespace Chess_Educational_Project
                 }
             }
             //castling
-            if (hasMoved == false)
+            if (hasMoved == false && !board.isInCheck)
             {
 
-                if (board[7, (int)pos.Y].piece is not null && board[7, (int)pos.Y].piece.hasMoved == false &&CheckRow(board, (int)pos.X, 7, (int)pos.Y))
+                if (board[7, (int)pos.Y].piece is not null && board[7, (int)pos.Y].piece.hasMoved == false && CheckRow(board, (int)pos.X, 7, (int)pos.Y))
                 {
-                    validMoves.Add(new Move(pos, new Vector2(pos.X + 2, pos.Y),MoveType.ShortCastling));
+                    bool shortCastlingValid = true;
+                    for (int i = 1; i <= 2; i++)
+                    {
+                        if (board.PlayerInCheck(pos + new Vector2(i, 0), colour))
+                        {
+                            shortCastlingValid = false;
+                        }
+                    }
+
+                    if (shortCastlingValid)
+                    {
+                        validMoves.Add(new Move(pos, new Vector2(pos.X + 2, pos.Y),MoveType.ShortCastling));
+                    }
+                    
                 }
                 if (board[1, (int)pos.Y].piece is not null && board[1, (int)pos.Y].piece.hasMoved == false && CheckRow(board, 1,(int)pos.X, (int)pos.Y))
                 {
-                    validMoves.Add(new Move(pos, new Vector2(pos.X - 2,pos.Y),MoveType.LongCastling));
+                    bool longCastlingValid = true;
+                    for (int i = 1; i <= 2; i++)
+                    {
+                        if (board.PlayerInCheck(pos + new Vector2(-i, 0), colour))
+                        {
+                            longCastlingValid = false;
+                        }
+                    }
+
+                    if (longCastlingValid)
+                    {
+                        validMoves.Add(new Move(pos, new Vector2(pos.X - 2, pos.Y), MoveType.LongCastling));
+                    }
+                    
                 }
             }
 
@@ -58,7 +84,7 @@ namespace Chess_Educational_Project
 
             return validMoves;
         }
-        private bool CheckRow(Board board, int start, int end, int rank)
+        internal bool CheckRow(Board board, int start, int end, int rank)
         {
             for (int i = start+1; i < end; i++)
             {
@@ -69,6 +95,7 @@ namespace Chess_Educational_Project
             }
             return true;
         }
+        
     }
    
    

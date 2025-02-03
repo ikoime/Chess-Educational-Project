@@ -32,8 +32,6 @@ namespace Chess_Educational_Project
         public Board board;
         public List<Move> lastLegalMoves;
         public Square lastSquare;
-        public bool isInCheck = false;
-        public PieceColour turnColour;
         public ChessGame()
         {
             InitializeComponent();
@@ -54,7 +52,7 @@ namespace Chess_Educational_Project
 
         private void ClockDecrement(object? sender, EventArgs e)
         {
-            if (turnColour == PieceColour.White)
+            if (board.turnColour == PieceColour.White)
             {
                 board.whiteTime -= TimeSpan.FromMilliseconds(100);
             }
@@ -84,7 +82,7 @@ namespace Chess_Educational_Project
             Image clickedImage = sender as Image;
             Square square = clickedImage.DataContext as Square;
             Piece clickedPiece = square.piece;
-            if (clickedPiece.colour != turnColour)
+            if (clickedPiece.colour != board.turnColour)
             {
                 return;
             }
@@ -149,18 +147,18 @@ namespace Chess_Educational_Project
             board.Move(square.targetMove,false);
             ResetMoves();
             
-            turnColour = (PieceColour)Convert.ToInt32((!(Convert.ToBoolean(turnColour))));
-            if (board.TurnPlayerInCheck(turnColour))
+            board.turnColour = (PieceColour)Convert.ToInt32((!(Convert.ToBoolean(board.turnColour))));
+            if (board.PlayerInCheck(board.turnColour))
             {
-                isInCheck = true;
+                board.isInCheck = true;
             }
             else
             {
-                isInCheck = false;
+                board.isInCheck = false;
             }
 
-            int numMoves = (board.pieces.SelectMany(x => x).Where(x => x.piece is not null && x.piece.colour == turnColour)).SelectMany(x => x.piece.GetMoves(board, x.pos).Where(x => CheckLegality(x))).Count();
-            if (numMoves == 0 && isInCheck)
+            int numMoves = (board.pieces.SelectMany(x => x).Where(x => x.piece is not null && x.piece.colour == board.turnColour)).SelectMany(x => x.piece.GetMoves(board, x.pos).Where(x => CheckLegality(x))).Count();
+            if (numMoves == 0 && board.isInCheck)
             {
                 MessageBox.Show("Checkmate");
                 Close();
@@ -168,13 +166,14 @@ namespace Chess_Educational_Project
             else if(numMoves == 0)
             {
                 MessageBox.Show("Stalemate");
+                Close();
             }
         }
         private bool CheckLegality(Move move)
         {
             Board tempBoard = new Board(board);
             tempBoard.Move(move, true);
-            if (tempBoard.TurnPlayerInCheck(turnColour))
+            if (tempBoard.PlayerInCheck(board.turnColour))
             {
                 return false;
             }

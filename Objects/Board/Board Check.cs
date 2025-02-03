@@ -9,19 +9,28 @@ namespace Chess_Educational_Project
 {
     public partial class Board
     {
-        public bool TurnPlayerInCheck(PieceColour turnColour)
+        public bool PlayerInCheck(PieceColour colourToCheck)
         {
-            Square kingSquare = null;
-            if (turnColour == PieceColour.White)
+            Vector2 kingPos;
+            if (colourToCheck == PieceColour.White)
             {
-                kingSquare = this[whiteKingPos];
+                kingPos = whiteKingPos;
             }
             else
             {
-                kingSquare = this[blackKingPos];
+                kingPos = blackKingPos;
             }
 
+            return CheckLogic(kingPos, colourToCheck); 
+        }
 
+        public bool PlayerInCheck(Vector2 dummyPos, PieceColour colourToCheck)
+        {
+            return CheckLogic(dummyPos, colourToCheck);
+        }
+
+        internal bool CheckLogic(Vector2 kingPos, PieceColour colourToCheck)
+        {
             (Vector2, Type)[] rayChecks = {(new Vector2(0,1),typeof(Rook)),
                                            (new Vector2(1,0),typeof(Rook)),
                                            (new Vector2(0,-1),typeof(Rook)),
@@ -35,7 +44,7 @@ namespace Chess_Educational_Project
 
             foreach ((Vector2, Type) rayCheck in rayChecks)
             {
-                if (CheckRayCast(rayCheck.Item2, rayCheck.Item1, kingSquare.pos, kingSquare.piece.colour))
+                if (CheckRayCast(rayCheck.Item2, rayCheck.Item1, kingPos, colourToCheck))
                 {
                     return true;
                 }
@@ -46,20 +55,20 @@ namespace Chess_Educational_Project
                 for (int yAdd = -1; yAdd <= 1; yAdd += 2)
                 {
                     //Then, for each diagonal square, we move by the xAdd again.
-                    Vector2 targetPos = new Vector2(kingSquare.pos.X + 2 * xAdd, kingSquare.pos.Y + yAdd);
+                    Vector2 targetPos = new Vector2(kingPos.X + 2 * xAdd, kingPos.Y + yAdd);
                     if (IsOnBoard(targetPos))
                     {
-                        if (this[targetPos].piece is Knight && this[targetPos].piece.colour != turnColour)
+                        if (this[targetPos].piece is Knight && this[targetPos].piece.colour != colourToCheck)
                         {
                             return true;
                         }
                     }
 
 
-                    targetPos = new Vector2(kingSquare.pos.X + xAdd, kingSquare.pos.Y + 2 * yAdd);
+                    targetPos = new Vector2(kingPos.X + xAdd, kingPos.Y + 2 * yAdd);
                     if (IsOnBoard(targetPos))
                     {
-                        if (this[targetPos].piece is Knight && this[targetPos].piece.colour != turnColour)
+                        if (this[targetPos].piece is Knight && this[targetPos].piece.colour != colourToCheck)
                         {
                             return true;
                         }
@@ -67,7 +76,7 @@ namespace Chess_Educational_Project
                 }
             }
             int directionSign;
-            if (kingSquare.piece.colour == PieceColour.White)
+            if (colourToCheck == PieceColour.White)
             {
                 directionSign = -1;
             }
@@ -77,8 +86,8 @@ namespace Chess_Educational_Project
             }
             for (int i = -1; i < 2; i += 2)
             {
-                Vector2 targetPos = kingSquare.pos + new Vector2(i, directionSign);
-                if (IsOnBoard(targetPos) && this[targetPos].piece is Pawn && this[targetPos].piece.colour != turnColour)
+                Vector2 targetPos = kingPos + new Vector2(i, directionSign);
+                if (IsOnBoard(targetPos) && this[targetPos].piece is Pawn && this[targetPos].piece.colour != colourToCheck)
                 {
                     return true;
                 }
@@ -86,10 +95,9 @@ namespace Chess_Educational_Project
 
 
             return false;
-
-
         }
-        private bool CheckRayCast(Type targetType, Vector2 dir, Vector2 pos, PieceColour colour)
+
+        internal bool CheckRayCast(Type targetType, Vector2 dir, Vector2 pos, PieceColour colour)
         {
             int mag = 1;
             while (true)

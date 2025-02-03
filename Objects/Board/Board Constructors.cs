@@ -62,6 +62,10 @@ namespace Chess_Educational_Project
             }
 
             lastPlayedMove = board.lastPlayedMove;
+
+            isInCheck = board.isInCheck;
+            turnColour = board.turnColour;
+
         }
     }
 }
