@@ -26,8 +26,8 @@ namespace Chess_Educational_Project
             List<(Type,PieceColour)> promotionOptions = new List<(Type,PieceColour)>()
             {
                 (typeof(Queen),colour),
-                (typeof(Rook), colour),
                 (typeof(Knight), colour),
+                (typeof(Rook), colour),
                 (typeof(Bishop), colour)
             };  
             InitializeComponent();

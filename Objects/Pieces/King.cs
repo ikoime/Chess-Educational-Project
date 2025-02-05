@@ -19,20 +19,27 @@ namespace Chess_Educational_Project
         public override List<Move> GetMoves(Board board, Vector2 pos)
         {
             List<Move> validMoves = new List<Move>();
+            //Iterates the x and y variables to check in a 3x3 square around the king.
             for (int x = -1; x < 2; x++)
             {
                 for (int y = -1; y < 2; y++)
                 {
+                    //If x and y are both zero, we don't need to check that square since its the original square.
                     if (x == 0 && y == 0)
                     {
                         continue;
                     }
+                    //Calculating the position we are checking. 
                     Vector2 targetPos = new Vector2(pos.X+x,pos.Y+y);
+                    //Checking if that square is on the board.
                     if (board.IsOnBoard(targetPos))
                     {
+                        //If it is, we check the moveType of that move. This returns a result from the enum.
                         MoveType moveType = board.MoveTypeForMove(colour, targetPos);
                         if (!(moveType == MoveType.Invalid))
                         {
+                            //If the move is not invalid we add it to the list of valid moves.
+                            //A moveType of invalid simply means a piece of the same colour is on that square.
                             validMoves.Add(new Move(pos,targetPos,moveType));
                         }
                     }

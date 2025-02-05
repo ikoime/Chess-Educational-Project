@@ -55,6 +55,9 @@ namespace Chess_Educational_Project
 
         private Move? _targetMove;
 
+        /// <summary>
+        /// A boolean which is used for binding that records if a square is selected by the user.
+        /// </summary>
         public bool isSelected
         {
             get

@@ -40,7 +40,7 @@
                                         <Rectangle x:Name="rct_Square" Fill="{Binding pos, Converter={StaticResource SquareConverter}}"/>
                                         <Rectangle x:Name="rct_IsSelected" Fill="OliveDrab" Opacity="0.4" Visibility="{Binding isSelected, Converter={StaticResource SelectionHighligtingConverter}}"/>
                                         <Image Source="{Binding piece,Converter={StaticResource PieceConverter}}" MouseDown="Piece_MouseDown"/>
-                                        <Image Source="{Binding targetMove,Converter={StaticResource ValidMoveConverter}}" Opacity="0.6" MouseDown="Move_MouseDown"/>
+                                        <Image Source="{Binding targetMove,Converter={StaticResource ValidMoveConverter}}" Opacity="0.2" MouseDown="Move_MouseDown"/>
                                 
                                     </Grid>
                                 </DataTemplate>

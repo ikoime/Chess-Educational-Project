@@ -32,6 +32,7 @@ namespace Chess_Educational_Project
         public Board board;
         public List<Move> lastLegalMoves;
         public Square lastSquare;
+        public DispatcherTimer clockTimer;
         public ChessGame()
         {
             InitializeComponent();
@@ -42,7 +43,7 @@ namespace Chess_Educational_Project
             //Adding clocks
             txt_ClockWhite.DataContext = board;
             txt_ClockBlack.DataContext = board;
-            DispatcherTimer clockTimer = new DispatcherTimer(DispatcherPriority.Render);
+            clockTimer = new DispatcherTimer(DispatcherPriority.Render);
             clockTimer.Tick += ClockDecrement;
             clockTimer.Interval = TimeSpan.FromMilliseconds(100);
             clockTimer.Start();
@@ -160,14 +161,17 @@ namespace Chess_Educational_Project
             int numMoves = (board.pieces.SelectMany(x => x).Where(x => x.piece is not null && x.piece.colour == board.turnColour)).SelectMany(x => x.piece.GetMoves(board, x.pos).Where(x => CheckLegality(x))).Count();
             if (numMoves == 0 && board.isInCheck)
             {
+                clockTimer.Stop();
                 MessageBox.Show("Checkmate");
                 Close();
             }
             else if(numMoves == 0)
             {
+                clockTimer.Stop();
                 MessageBox.Show("Stalemate");
                 Close();
             }
+            square.isSelected = true;
         }
         private bool CheckLegality(Move move)
         {
