@@ -107,8 +107,7 @@ namespace Chess_Educational_Project
                 List<Move> legalMoves = clickedPiece.GetMoves(board,square.pos);
                 foreach (Move move in legalMoves)
                 {
-                    
-                    
+                    //If the move is illegal, then we don't add it.
                     if (!CheckLegality(move))
                     {
                         continue;
@@ -124,7 +123,7 @@ namespace Chess_Educational_Project
                 lastLegalMoves = legalMoves;
                 
             }
-
+           
             square.isSelected = true;
 
         }
@@ -145,6 +144,10 @@ namespace Chess_Educational_Project
             Image clickedMove = sender as Image;
             Square square = clickedMove.DataContext as Square;
             board[square.targetMove.startPosition].piece.hasMoved = true;
+            if (board.lastPlayedMove.moveType != MoveType.Invalid)
+            {
+                board[board.lastPlayedMove.endPosition].isSelected = false;
+            }
             board.Move(square.targetMove,false);
             ResetMoves();
             
@@ -173,15 +176,17 @@ namespace Chess_Educational_Project
             }
             square.isSelected = true;
         }
+        /// <summary>
+        /// Checks if a move would place or leave the turn player in check after it was hypothetically played.
+        /// </summary>
+        /// <param name="move">The move to be checked.</param>
+        /// <returns>True if the move is legal, false else.</returns>
         private bool CheckLegality(Move move)
         {
+            //Creating a temporary copy of the board.
             Board tempBoard = new Board(board);
             tempBoard.Move(move, true);
-            if (tempBoard.PlayerInCheck(board.turnColour))
-            {
-                return false;
-            }
-            return true;
+            return !tempBoard.PlayerInCheck(board.turnColour);
         }
     }
 }

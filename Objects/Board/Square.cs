@@ -92,9 +92,13 @@ namespace Chess_Educational_Project
             this.piece = piece;
             this.pos = pos;
         }
+        /// <summary>
+        /// A copy constructor.
+        /// </summary>
+        /// <param name="square">The instance to be copied.</param>
         public Square(Square square)
         {
-            piece = square.piece;
+            this.piece = square.piece;
             this.pos = square.pos;
         }
 

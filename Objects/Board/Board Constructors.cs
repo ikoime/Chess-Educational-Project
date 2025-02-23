@@ -42,7 +42,10 @@ namespace Chess_Educational_Project
             this.ySize = y;
             Setup();
         }
-
+        /// <summary>
+        /// A copy constructor.
+        /// </summary>
+        /// <param name="board">The instance to be copied.</param>
         public Board(Board board)
         {
             xSize = board.xSize;

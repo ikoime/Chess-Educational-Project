@@ -59,8 +59,13 @@ namespace Chess_Educational_Project
             }
 
         }
-
+        /// <summary>
+        /// The position of the white king on the board.
+        /// </summary>
         public Vector2 whiteKingPos { get; private set; } = new Vector2(4, 7);
+        /// <summary>
+        /// The position of the black king on the board.
+        /// </summary>
         public Vector2 blackKingPos { get; private set; } = new Vector2(4, 0);
 
         public bool isInCheck { get; set; }

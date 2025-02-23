@@ -12,20 +12,24 @@ namespace Chess_Educational_Project
     /// </summary>
     public enum MoveType
     {
+        //Most common move types.
         Default,
         Capture,
-        Check,
 
+        //Pawn related special moves.
         FirstPawnMove,
         EnPassant,
 
+        //Promotion.
         Promotion,
         PromotionCapture,
 
+        //Castling.
         ShortCastling,
         LongCastling,
 
-        Invalid,
+        //Used in the LinearMove function to record when an allied piece is targeted.
+        Invalid
         
     }
     /// <summary>
