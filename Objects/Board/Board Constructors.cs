@@ -71,11 +71,17 @@ namespace Chess_Educational_Project
 
         }
 
-
+        /// <summary>
+        /// A constructor used to construct a board state from a provided FEN.
+        /// </summary>
+        /// <param name="fen">The raw text FEN</param>
         public Board(string fen)
         {
             Setup();
-            FENToBoard(fen);
+            if (!FENToBoard(fen))
+            {
+                throw new ArgumentException("Invalid FEN");
+            }
         }
     }
 }

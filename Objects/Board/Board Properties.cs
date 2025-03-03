@@ -92,6 +92,11 @@ namespace Chess_Educational_Project
         public PieceColour turnColour { get; private set; }
 
         /// <summary>
+        /// Tracks the number of halfmoves since a pawn has been pushed/a capture is made. Used for the 50 move rule.
+        /// </summary>
+        public int halfMoves { get; set; }
+
+        /// <summary>
         /// Invokes the property changed event.
         /// </summary>
         /// <param name="propertyName">The property which has changed.</param>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
@@ -66,6 +67,37 @@ namespace Chess_Educational_Project
             { MoveType.Promotion, "pack://siteoforigin:,,,/Images/move.png" },
             { MoveType.PromotionCapture,"pack://siteoforigin:,,,/Images/capture.png" }
 
+        };
+
+        /// <summary>
+        /// A dictionary used in FEN parsing that gives the expected position for a rook to be if castling is available.
+        /// </summary>
+        public static Dictionary<char, Vector2> rookPositionsForCastling = new Dictionary<char, Vector2>()
+        {
+            {'K',new Vector2(7,7)},
+            {'Q',new Vector2(0,7)},
+            {'k',new Vector2(7,0)},
+            {'q',new Vector2(0,0)}
+        };
+
+        /// <summary>
+        /// A dictionary which converts a character into a piece object based on algebraic notation.
+        /// </summary>
+        public static Dictionary<char, Piece> pieceNotationToPieceObject = new Dictionary<char, Piece>()
+        {
+            //All of the white pieces.
+            {'K', new King(PieceColour.White) },
+            {'R', new Rook(PieceColour.White) },
+            {'B', new Bishop(PieceColour.White) },
+            {'N', new Knight(PieceColour.White) },
+            {'P', new Pawn(PieceColour.White) },
+
+            //All of the black pieces.
+            {'k', new King(PieceColour.Black) },
+            {'r', new Rook(PieceColour.Black) },
+            {'b', new Bishop(PieceColour.Black) },
+            {'n', new Knight(PieceColour.Black) },
+            {'p', new Pawn(PieceColour.Black) },
         };
 
         public static BitmapImage CreateImageSource(string source)

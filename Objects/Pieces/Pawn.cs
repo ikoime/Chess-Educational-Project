@@ -24,17 +24,20 @@ namespace Chess_Educational_Project
             List<Move> legalMoves = new List<Move>();
             int directionSign;
             int endRank;
+            int startRank;
             PieceColour enemyColour;
             //Determining the move direction and the ype of the opposing coloured pieces.
             if (this.colour == PieceColour.Black)
             {
                 directionSign = 1;//board.turnColour == PieceColour.White ? 1 : -1;
+                startRank = 1;
                 endRank = board.pieces.Count - 1;
                 enemyColour = PieceColour.White;
             }
             else
             {
                 directionSign = -1; //board.turnColour == PieceColour.White ? 1 : -1;
+                startRank = board.pieces.Count - 2;
                 endRank = 0;
                 enemyColour = PieceColour.Black;
             }
@@ -60,7 +63,7 @@ namespace Chess_Educational_Project
                 legalMoves.Add(new Move(pos, targetPos, typeOfMove));
 
                 //If it hasn't moved yet. 
-                if (!hasMoved)
+                if (y == startRank)
                 {
                     if (board[y + directionSign * 2, x].piece is null)
                     {

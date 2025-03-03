@@ -33,6 +33,7 @@ namespace Chess_Educational_Project
         public List<Move> lastLegalMoves;
         public Square lastSquare;
         public DispatcherTimer clockTimer;
+
         public ChessGame(Board board)
         {
             InitializeComponent();

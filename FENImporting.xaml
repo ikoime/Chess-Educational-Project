@@ -5,17 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Chess_Educational_Project"
         mc:Ignorable="d"
-        Title="FENImporting" Height="450" Width="800" Background="CornflowerBlue">
+        Title="FENImporting" Height="450" Width="630" Background="CornflowerBlue" WindowStartupLocation="CenterScreen">
     <Border Padding="30">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
-                <RowDefinition Height="6*"></RowDefinition>
+                <RowDefinition Height="5*"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <DockPanel>
                 <Label Content="FEN:" FontSize="15" DockPanel.Dock="Top" Foreground="White"></Label>
-                <TextBox x:Name="txt_Fen" Background="Gray"></TextBox>
+                <TextBox x:Name="txt_Fen" Background="Gray" BorderBrush="White" Foreground="White"></TextBox>
             </DockPanel>
             <Button Grid.Row="2" FontSize="30" HorizontalAlignment="Center" Content="Start Game" Background="Gray" Foreground="White" BorderBrush="White" Click="StartGame_Click" />
         </Grid>

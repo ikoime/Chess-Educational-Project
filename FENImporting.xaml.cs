@@ -27,10 +27,29 @@ namespace Chess_Educational_Project
             InitializeComponent();
         }
 
+        /// <summary>
+        /// An event handler triggered when the button to start the game is clicked.
+        /// </summary>
+        /// <param name="sender">The button whose event was triggered.</param>
+        /// <param name="e">The accompanying event information.</param>
         private void StartGame_Click(object sender, RoutedEventArgs e)
         {
-            Board board = new Board(txt_Fen.Text);
+             
+            Board board;
+            if (txt_Fen.Text.Trim() == "")
+            {
+                //If there is no provided FEN, I create a standard position.
+                board = new Board();
+            }
+            else
+            {
+                //Creating an instance of the board class with the given FEN.
+                board = new Board(txt_Fen.Text);
+            }
             
+
+
+            //Creating an instance of the ChessGame window and displaying it to the user.
             ChessGame game = new ChessGame(board);
             game.Show();
             this.Close();
