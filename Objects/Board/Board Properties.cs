@@ -17,6 +17,9 @@ namespace Chess_Educational_Project
         /// </summary>
         public ObservableCollection<ObservableCollection<Square>> pieces = new ObservableCollection<ObservableCollection<Square>>();
 
+        /// <summary>
+        /// Event which is invoked whenever a property we are monitoring changes.
+        /// </summary>
         public event PropertyChangedEventHandler? PropertyChanged;
 
         /// <summary>
@@ -27,11 +30,17 @@ namespace Chess_Educational_Project
         /// The maximum ySize. By default, its set to 8.
         /// </summary>
         public int ySize { get; private set; } = 8;
+
         /// <summary>
         /// The previously played move. Used internally for tracking en passant.
         /// </summary>
         public Move lastPlayedMove { get; private set; } = new Move(new Vector2(-1, -1), new Vector2(-1, -1), MoveType.Invalid);
-        private TimeSpan _whiteTime;
+
+
+        private TimeSpan _whiteTime = new TimeSpan(0, 0, 10, 0, 0);
+        /// <summary>
+        /// Records the remaining time for the white pieces.
+        /// </summary>
         public TimeSpan whiteTime
         {
             get
@@ -44,7 +53,11 @@ namespace Chess_Educational_Project
                 OnPropertyChanged();
             }
         }
-        private TimeSpan _blackTime;
+
+        private TimeSpan _blackTime = new TimeSpan(0, 0, 10, 0, 0);
+        /// <summary>
+        /// Records the remaining time for the white pieces.
+        /// </summary>
         public TimeSpan blackTime
         {
 
@@ -68,9 +81,20 @@ namespace Chess_Educational_Project
         /// </summary>
         public Vector2 blackKingPos { get; private set; } = new Vector2(4, 0);
 
+        /// <summary>
+        /// Records if the turn player is in check or not.
+        /// </summary>
         public bool isInCheck { get; set; }
-        public PieceColour turnColour { get; set; }
 
+        /// <summary>
+        /// Represents whose turn it is.
+        /// </summary>
+        public PieceColour turnColour { get; private set; }
+
+        /// <summary>
+        /// Invokes the property changed event.
+        /// </summary>
+        /// <param name="propertyName">The property which has changed.</param>
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

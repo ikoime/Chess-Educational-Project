@@ -5,19 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Chess_Educational_Project"
         mc:Ignorable="d"
-        Title="Promotion" Height="300" Width="75" Background="Gray" WindowStartupLocation="CenterScreen" WindowStyle="None">
+        Title="Promotion" Height="213" Width="50" Background="Transparent" WindowStartupLocation="Manual" WindowStyle="None" WindowState="Normal" AllowsTransparency="True" >
     <Grid>
-        <ItemsControl x:Name="itc_Promotion">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <UniformGrid Rows="4"></UniformGrid>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Image Source="{Binding Converter={StaticResource PromotionOptionConverter}}" MouseDown="Image_MouseDown"></Image>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <!--The ItemsControl that holds all of the pieces the user can promote into.-->
+            <ItemsControl x:Name="itc_Promotion">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Rows="4"></UniformGrid>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <!--Background for the piece.-->
+                            <Ellipse Fill="White" Opacity="0.6"/>
+                            <!--The individual piece-->
+                            <Image Source="{Binding Converter={StaticResource PromotionOptionConverter}}" MouseDown="Image_MouseDown"></Image>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+        </Grid>
+        <Button Grid.Row="1" Background="White" Content="X" FontSize="5" Click="Button_Click"/>
     </Grid>
 </Window>

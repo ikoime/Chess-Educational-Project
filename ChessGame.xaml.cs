@@ -33,26 +33,35 @@ namespace Chess_Educational_Project
         public List<Move> lastLegalMoves;
         public Square lastSquare;
         public DispatcherTimer clockTimer;
-        public ChessGame()
+        public ChessGame(Board board)
         {
             InitializeComponent();
             //SetupGrid();
-            board = new Board();
+            this.board = board;
             itc_ChessBoard.ItemsSource = board.pieces;
 
             //Adding clocks
             txt_ClockWhite.DataContext = board;
             txt_ClockBlack.DataContext = board;
-            clockTimer = new DispatcherTimer(DispatcherPriority.Render);
+
+            //Creating the timer which will reduce the turn player's time remaining.
+            //Ran on Loaded (6) priority to ensure that the time is always decreasing regardless of what's going on in the main program.
+            clockTimer = new DispatcherTimer(DispatcherPriority.Loaded);
+            //Assigning the ClockDecrement procedure to the Tick event.
             clockTimer.Tick += ClockDecrement;
+            //Making it so the procedure runs every 100 milliseconds, since I decrease the timer by 100 milliseconds every time it's ran.
             clockTimer.Interval = TimeSpan.FromMilliseconds(100);
             clockTimer.Start();
-
             
         }
-
+        /// <summary>
+        /// A procedure that decrements the clocks on the tick event of a dispatcher timer. Should never be ran outside of this.
+        /// </summary>
+        /// <param name="sender">The DispatcherTimer which invoked the Tick event.</param>
+        /// <param name="e">Information about the event.</param>
         private void ClockDecrement(object? sender, EventArgs e)
         {
+            //Decreasing the time for the correct colour.
             if (board.turnColour == PieceColour.White)
             {
                 board.whiteTime -= TimeSpan.FromMilliseconds(100);
@@ -62,13 +71,16 @@ namespace Chess_Educational_Project
                 board.blackTime -= TimeSpan.FromMilliseconds(100);
             }
 
+            //If either player has lost the game, then we display an appropriate message and close the window.
             if (board.whiteTime == TimeSpan.Zero)
             {
+                clockTimer.Stop();
                 MessageBox.Show("White has lost on time");
                 Close();
             }
-            if (board.blackTime == TimeSpan.Zero)
+            else if (board.blackTime == TimeSpan.Zero)
             {
+                clockTimer.Stop();
                 MessageBox.Show("Black has lost on time");
                 Close();
             }
@@ -83,6 +95,7 @@ namespace Chess_Educational_Project
             Image clickedImage = sender as Image;
             Square square = clickedImage.DataContext as Square;
             Piece clickedPiece = square.piece;
+            //If they are clicking a piece whose colour does not match whose turn it is, then they cannot move it.
             if (clickedPiece.colour != board.turnColour)
             {
                 return;
@@ -133,7 +146,7 @@ namespace Chess_Educational_Project
             {
                 foreach (Move move in lastLegalMoves)
                 {
-                    board[(int)move.endPosition.Y, (int)move.endPosition.X].targetMove = null;
+                    board[move.endPosition].targetMove = null;
                 }
             }
             
@@ -141,39 +154,48 @@ namespace Chess_Educational_Project
 
         private void Move_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            //Getting the information from the sender which triggered the event (in this case a legal move indicator).
             Image clickedMove = sender as Image;
             Square square = clickedMove.DataContext as Square;
+
+            //Recording that this piece has moved (important for castling).
             board[square.targetMove.startPosition].piece.hasMoved = true;
+
             if (board.lastPlayedMove.moveType != MoveType.Invalid)
             {
                 board[board.lastPlayedMove.endPosition].isSelected = false;
             }
+            //Makes the move on the board.
             board.Move(square.targetMove,false);
-            ResetMoves();
-            
-            board.turnColour = (PieceColour)Convert.ToInt32((!(Convert.ToBoolean(board.turnColour))));
-            if (board.PlayerInCheck(board.turnColour))
-            {
-                board.isInCheck = true;
-            }
-            else
-            {
-                board.isInCheck = false;
-            }
 
+            //Gets rid of the legal move indicators.
+            ResetMoves();
+
+            //Alternates the turn order.
+            board.AlternateTurnOrder();
+
+            //Records if the player is in check for that turn.
+            board.isInCheck = board.PlayerInCheck(board.turnColour);
+
+            //Gets the number of legal moves of all of the pieces on the board. If this number is 0, then its either checkmate or stalemate.
+            //This can then be differentiated depending on whether or not that player is in check.
             int numMoves = (board.pieces.SelectMany(x => x).Where(x => x.piece is not null && x.piece.colour == board.turnColour)).SelectMany(x => x.piece.GetMoves(board, x.pos).Where(x => CheckLegality(x))).Count();
-            if (numMoves == 0 && board.isInCheck)
+            if (numMoves == 0)
             {
                 clockTimer.Stop();
-                MessageBox.Show("Checkmate");
+                //If they have no legal moves, and are in check, they are checkmated.
+                if (board.isInCheck)
+                {
+                    MessageBox.Show("Checkmate","Game over",MessageBoxButton.OK,MessageBoxImage.Exclamation);
+                }
+                //Else they are stalemated.
+                else
+                {
+                    MessageBox.Show("Stalemate");
+                }
                 Close();
             }
-            else if(numMoves == 0)
-            {
-                clockTimer.Stop();
-                MessageBox.Show("Stalemate");
-                Close();
-            }
+            
             square.isSelected = true;
         }
         /// <summary>

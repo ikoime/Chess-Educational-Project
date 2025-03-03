@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Security;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -67,7 +68,11 @@ namespace Chess_Educational_Project
                 throw new Exception("The xSize and ySize must be 8 to perform a default setup");
             }
         }
-
+        /// <summary>
+        /// Checks if a square is within the bounds of the board.
+        /// </summary>
+        /// <param name="pos">The position to be checked.</param>
+        /// <returns>True if the square is on the board, false else.</returns>
         public bool IsOnBoard(Vector2 pos)
         {
             if (pos.X < 0 || pos.X >= xSize)
@@ -80,6 +85,12 @@ namespace Chess_Educational_Project
             }
             return true;
         }
+        /// <summary>
+        /// Returns the if the move is a capture or not.
+        /// </summary>
+        /// <param name="colour">The colour of the player making the move.</param>
+        /// <param name="pos">The end position of the move.</param>
+        /// <returns>Either MoveType.Capture if its a capture, or MoveType.Default else.</returns>
         public MoveType MoveTypeForMove(PieceColour colour, Vector2 pos)
         {
             PieceColour enemyColour = (colour == PieceColour.White ? PieceColour.Black : PieceColour.White);
@@ -94,6 +105,18 @@ namespace Chess_Educational_Project
             }
             //Temp
             return MoveType.Invalid;
+        }
+        /// <summary>
+        /// Alternates the turn colour between white and black.
+        /// </summary>
+        public void AlternateTurnOrder()
+        {
+            if (this.turnColour == PieceColour.White)
+            {
+                this.turnColour = PieceColour.Black;
+                return;
+            }
+            this.turnColour = PieceColour.White;
         }
         /// <summary>
         /// Used for the movement of the bishop, rook and queen since they all check along a given direction vector.
@@ -133,5 +156,177 @@ namespace Chess_Educational_Project
                 mag++;
             }
         }
+
+        public bool FENToBoard(string fen)
+        {
+            string[] fenSplit = fen.Split(' ');
+            int y = 0;
+
+            foreach (string row in fenSplit[0].Split("/"))
+            {
+                int x = 0;
+                foreach (char c in row)
+                {
+                    if (char.IsDigit(c))
+                    {
+                        int num = Convert.ToInt16(c) - '0';
+                        x += num;
+                    }
+                    else
+                    {
+                        Piece pieceToAdd;
+                        if (!CharToPiece(c, out pieceToAdd))
+                        {
+                            return false;
+                        }
+                        if (pieceToAdd is Rook)
+                        {
+                            pieceToAdd.hasMoved = true;
+                        }
+
+                        this[y, x].piece = pieceToAdd;
+                        x++;
+                    }
+
+
+                }
+                y++;
+            }
+            if (fenSplit[1].Length != 1)
+            {
+                return false;
+            }
+
+            if (!"wb".Contains(fenSplit[1]))
+            {
+                return false;
+            }
+
+            turnColour = PieceColour.White;
+            if (fenSplit[1] == "b")
+            {
+                turnColour = PieceColour.Black;
+            }
+
+            foreach (char c in fenSplit[2])
+            {
+                if (c == '-')
+                {
+                    break;
+                }
+
+                Vector2 rookPosition;
+
+                switch (c)
+                {
+                    case 'K':
+                        rookPosition = new Vector2(7, 7);
+                        break;
+                    case 'Q':
+                        rookPosition = new Vector2(0, 7);
+                        break;
+                    case 'k':
+                        rookPosition = new Vector2(7, 0);
+                        break;
+                    case 'q':
+                        rookPosition = new Vector2(0, 0);
+                        break;
+                    default:
+                        return false;
+
+                }
+
+                if (this[rookPosition].piece is null)
+                {
+                    return false;
+                }
+
+                if (!(this[rookPosition].piece is Rook))
+                {
+                    return false;
+                }
+
+                this[rookPosition].piece.hasMoved = false;
+            }
+
+            if (!(fenSplit[3] == "-"))
+            {
+                int directionSign = 1;
+                if (turnColour == PieceColour.White)
+                {
+                    directionSign = -1;
+                }
+
+                if (!NotationToPosition(fenSplit[3], out Vector2 pos))
+                {
+                    return false;
+                }
+
+
+                lastPlayedMove = new Move(pos, pos + new Vector2(0, directionSign), MoveType.FirstPawnMove);
+            }
+
+            return true;
+        }
+
+        private bool CharToPiece(char character,out Piece piece)
+        {
+            PieceColour pieceColour = PieceColour.Black;
+            if (char.IsUpper(character))
+            {
+                pieceColour = PieceColour.White;
+            }
+
+            string pieceChar = character.ToString().ToLower();
+            switch (pieceChar)
+            {
+                case "k":
+                    piece = new King(pieceColour);
+                    break;
+                case "q":
+                    piece = new Queen(pieceColour);
+                    break;
+                case "r":
+                    piece =  new Rook(pieceColour);
+                    break;
+                case "b":
+                    piece = new Bishop(pieceColour);
+                    break;
+                case "n":
+                    piece = new Knight(pieceColour);
+                    break;
+                case "p":
+                    piece = new Pawn(pieceColour);
+                    break;
+                default:
+                    piece = null;
+                    return false;
+
+            }
+            return true;
+        }
+
+        private bool NotationToPosition(string notation, out Vector2 pos)
+        {
+            pos = new Vector2(-1, -1);
+            int x = "abcdefgh".IndexOf(notation[0]);
+
+            if (x == -1)
+            {
+                return false;
+            }
+
+            if (!char.IsDigit(notation[1]))
+            {
+                return false;
+            }
+
+            int y = 7 - Convert.ToInt32(notation[1]) - '1';
+            pos = new Vector2(x, y);
+
+            return true;
+
+        }
+
     }
 }

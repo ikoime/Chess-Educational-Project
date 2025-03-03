@@ -1,0 +1,23 @@
+﻿<Window x:Class="Chess_Educational_Project.FENImporting"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Chess_Educational_Project"
+        mc:Ignorable="d"
+        Title="FENImporting" Height="450" Width="800" Background="CornflowerBlue">
+    <Border Padding="30">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="6*"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <DockPanel>
+                <Label Content="FEN:" FontSize="15" DockPanel.Dock="Top" Foreground="White"></Label>
+                <TextBox x:Name="txt_Fen" Background="Gray"></TextBox>
+            </DockPanel>
+            <Button Grid.Row="2" FontSize="30" HorizontalAlignment="Center" Content="Start Game" Background="Gray" Foreground="White" BorderBrush="White" Click="StartGame_Click" />
+        </Grid>
+    </Border>
+</Window>

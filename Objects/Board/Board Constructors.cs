@@ -70,5 +70,12 @@ namespace Chess_Educational_Project
             turnColour = board.turnColour;
 
         }
+
+
+        public Board(string fen)
+        {
+            Setup();
+            FENToBoard(fen);
+        }
     }
 }

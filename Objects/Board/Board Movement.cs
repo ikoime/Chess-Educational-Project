@@ -24,12 +24,14 @@ namespace Chess_Educational_Project
             }
             if (move.moveType == MoveType.ShortCastling)
             {
+                //Moving the rook to the correct square.
                 Square rookSquare = this[(int)move.startPosition.Y, 7];
                 this[move.endPosition - new Vector2(1, 0)].piece = rookSquare.piece;
                 rookSquare.piece = null;
             }
             else if (move.moveType == MoveType.LongCastling)
             {
+                //Moving the rook to the correct square.
                 Square rookSquare = this[(int)move.startPosition.Y, 0];
                 this[move.endPosition + new Vector2(1, 0)].piece = rookSquare.piece;
                 rookSquare.piece = null;
@@ -50,10 +52,16 @@ namespace Chess_Educational_Project
             Square startingSquare = this[move.startPosition];
             this[move.endPosition].piece = startingSquare.piece;
             startingSquare.piece = null;
-            lastPlayedMove = move;
 
+            //Recording the move for en passant.
+            lastPlayedMove = move;
         }
 
+        /// <summary>
+        /// A function that converts the chosen piece on the promotion window into a piece object.
+        /// </summary>
+        /// <param name="value">The tuple returned from the window.</param>
+        /// <returns>A piece of the correct type and colour.</returns>
         private Piece PromotionSwitch((Type, PieceColour) value)
         {
             Type pieceType = value.Item1;
