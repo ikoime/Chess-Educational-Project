@@ -87,6 +87,7 @@ namespace Chess_Educational_Project
         {
             //All of the white pieces.
             {'K', new King(PieceColour.White) },
+            {'Q', new Queen(PieceColour.White) },
             {'R', new Rook(PieceColour.White) },
             {'B', new Bishop(PieceColour.White) },
             {'N', new Knight(PieceColour.White) },
@@ -94,6 +95,7 @@ namespace Chess_Educational_Project
 
             //All of the black pieces.
             {'k', new King(PieceColour.Black) },
+            {'q', new Queen(PieceColour.Black) },
             {'r', new Rook(PieceColour.Black) },
             {'b', new Bishop(PieceColour.Black) },
             {'n', new Knight(PieceColour.Black) },

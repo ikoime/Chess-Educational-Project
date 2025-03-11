@@ -1,0 +1,63 @@
+﻿<Window x:Class="Chess_Educational_Project.Tutorial"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Chess_Educational_Project"
+        mc:Ignorable="d"
+        Title="Tutorial" Height="430" Width="630" Background="CornflowerBlue">
+    <Border Padding="15">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="0.2*"></ColumnDefinition>
+                <ColumnDefinition Width="0.8*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <!--The chessboard.-->
+            <ItemsControl x:Name="itc_ChessBoard">
+                <ItemsControl.ItemsPanel>
+                    <!--This panel creates all of the rows.-->
+                    <ItemsPanelTemplate>
+                        <UniformGrid Rows="8"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <ItemsControl ItemsSource="{Binding}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Columns="{Binding Count}"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <!--This DataTemplate is for each of the pieces on the board. -->
+                                <DataTemplate>
+                                    <Grid>
+                                        <Rectangle x:Name="rct_Square" Fill="{Binding pos, Converter={StaticResource SquareConverter}}"/>
+                                        <Rectangle x:Name="rct_IsSelected" Fill="#829769" Opacity="0.4" Visibility="{Binding isSelected, Converter={StaticResource SelectionHighligtingConverter}}"/>
+                                        <Image Source="{Binding piece,Converter={StaticResource PieceConverter}}" MouseDown="Piece_MouseDown"/>
+                                        <Image Source="{Binding targetMove,Converter={StaticResource ValidMoveConverter}}" Opacity="0.2" MouseDown="Move_MouseDown"/>
+
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10*"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Border BorderBrush="Black" BorderThickness="2" VerticalAlignment="Center">
+                    <TextBlock x:Name="txt_Tutorial" Background="White" Text="{Binding text}" TextWrapping="Wrap" />
+                </Border>
+                <Button Grid.Row="1" Content=">" Background="White" BorderBrush="Black" BorderThickness="2" Click="Button_Click"/>
+            </Grid>
+            
+            
+            
+        </Grid>
+    </Border>
+</Window>

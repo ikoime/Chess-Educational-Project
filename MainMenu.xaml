@@ -1,0 +1,48 @@
+﻿<Window x:Class="Chess_Educational_Project.MainMenu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Chess_Educational_Project"
+        mc:Ignorable="d"
+        Title="MainMenu" Height="400" Width="750" Background="CornflowerBlue">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="8*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Chess Educational Project" FontSize="30" Foreground="White"/>
+        <ItemsControl x:Name="itc_Buttons" Grid.Row="1">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <ItemContainerTemplate>
+                    <StackPanel Orientation="Vertical">
+                        
+                        <Label Content="{Binding header}" HorizontalAlignment="Center" FontSize="20" Foreground="White"/>
+                        <ItemsControl Grid.Row="1" ItemsSource="{Binding menuButtons}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Vertical"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <ItemContainerTemplate>
+                                    <Button Click="Button_Click" Background="White" BorderBrush="Black" Width="350" HorizontalAlignment="Center" Margin="5">
+                                        <StackPanel Orientation="Horizontal" >
+                                            <Image Source="{Binding image}" Height="40" Width="40" HorizontalAlignment="Center" VerticalAlignment="Center" ></Image>
+                                            <Label Content="{Binding buttonText}" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                </ItemContainerTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </ItemContainerTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</Window>

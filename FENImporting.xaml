@@ -15,9 +15,9 @@
             </Grid.RowDefinitions>
             <DockPanel>
                 <Label Content="FEN:" FontSize="15" DockPanel.Dock="Top" Foreground="White"></Label>
-                <TextBox x:Name="txt_Fen" Background="Gray" BorderBrush="White" Foreground="White"></TextBox>
+                <TextBox x:Name="txt_Fen"  BorderBrush="Black"></TextBox>
             </DockPanel>
-            <Button Grid.Row="2" FontSize="30" HorizontalAlignment="Center" Content="Start Game" Background="Gray" Foreground="White" BorderBrush="White" Click="StartGame_Click" />
+            <Button Grid.Row="2" FontSize="20" HorizontalAlignment="Center" Content="Start Game" Foreground="Black" BorderBrush="Black" Click="StartGame_Click" />
         </Grid>
     </Border>
 </Window>

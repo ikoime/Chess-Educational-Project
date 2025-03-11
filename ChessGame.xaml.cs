@@ -127,7 +127,7 @@ namespace Chess_Educational_Project
                         continue;
                     }
                     //Iterating through each of the moves in the legalMoves list in order to mark them on the board.
-                    board[(int)move.endPosition.Y, (int)move.endPosition.X].targetMove = move;
+                    board[move.endPosition].targetMove = move;
                     
                     
                 }
