@@ -197,6 +197,13 @@ namespace Chess_Educational_Project
                 Close();
             }
             
+            //If the halfMove counter reaches 50, then the game should end in a draw.
+            if (board.halfMoves == 50)
+            {
+                MessageBox.Show("The game is a draw by the 50 move rule.");
+                Close();
+            }
+
             square.isSelected = true;
         }
         /// <summary>

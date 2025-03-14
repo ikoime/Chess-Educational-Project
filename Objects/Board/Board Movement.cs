@@ -7,10 +7,28 @@ using System.Threading.Tasks;
 
 namespace Chess_Educational_Project
 {
+    
     public partial class Board
     {
+        /// <summary>
+        /// The procedure that controls the movement of pieces on the board.
+        /// </summary>
+        /// <param name="move">The move to make on the board.</param>
+        /// <param name="testing">A boolean parameter that determines if the move being made is user decided, or part of a check.</param>
         public void Move(Move move, bool testing)
         {
+            //Updating the halfMove count for the 50 move rule.
+            if (!testing)
+            {
+                halfMoves++;
+                if (this[move.startPosition].piece is Pawn || move.moveType == MoveType.Capture)
+                {
+                    halfMoves = 0;
+                }
+            }
+            
+
+
             if (this[move.startPosition].piece is King)
             {
                 if (this[move.startPosition].piece.colour == PieceColour.White)
@@ -52,6 +70,9 @@ namespace Chess_Educational_Project
             Square startingSquare = this[move.startPosition];
             this[move.endPosition].piece = startingSquare.piece;
             startingSquare.piece = null;
+
+
+            
 
             //Recording the move for en passant.
             lastPlayedMove = move;

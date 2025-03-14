@@ -1,31 +1,31 @@
 [
   {
-    "fen": "8/4p3/3P4/8/8/8/4P3/8 w - - 0 1",
-    "text": "The first piece in chess are pawns. They can move one square forwards, and capture diagonally. However, they can promote once they reach the end of the board, and can move two squares forwards on the first move!"
-  },
-  {
     "fen": "8/8/8/3bb3/8/2BB4/8/8 w - - 0 1",
-    "text": "The bishop is a more powerful piece! They can move any number of squares at once, but only diagonally! However, it can't move through pieces."
+    "text": "The bishop is a powerful piece! They can move any number of squares at once, but only diagonally! However, it can't move through pieces."
   },
   {
     "fen": "8/8/8/3nn3/3NN3/8/8/8 w - - 0 1",
     "text": "The knight can move in an L shape, and jump over pieces!"
   },
   {
-    "fen" : "8/8/8/3r4/8/8/8/7R w - - 0 1",
+    "fen": "8/8/8/3r4/8/8/8/7R w - - 0 1",
     "text": "Like a bishop, a rook can move any number of squares horizontally or vertically!"
   },
   {
-    "fen" : "q7/8/8/8/8/8/7Q/8 w - - 0 1",
+    "fen": "q7/8/8/8/8/8/7Q/8 w - - 0 1",
     "text": "The queen is your most powerful piece. It moves any number of squares horizontally, vertically or even diagonally! Therefore, it moves like a rook and a bishop combined."
   },
   {
     "fen": "4k3/8/8/8/8/8/8/4K3 w - - 0 1",
-    "text": "The king is your most important piece. Despite it being weak, if you can't defend your king, you lose!"
+    "text": "The king is your most important piece. Despite it being weak, if you can't defend your king, you lose! In a real game, you would not be able to place your king where it would be capturable."
   },
   {
-    "fen" : "r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1",
-    "text": "Your king can also perform a special move if your king and rook's havent moved called castling!"
+    "fen": "r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1",
+    "text": "Your king can also perform a special move if your king and rooks haven't moved called castling!"
+  },
+  {
+    "fen": "8/4p3/3P4/8/8/8/4P3/8 w - - 0 1",
+    "text": "The first piece in chess are pawns. They can move one square forwards, and capture diagonally. However, they can promote once they reach the end of the board, and can move two squares forwards on the first move!"
   },
   {
     "fen": "8/3p4/8/4Pp2/8/8/8 w - f6 0 1",

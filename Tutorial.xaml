@@ -50,9 +50,11 @@
                     <RowDefinition Height="10*"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
+                
                 <Border BorderBrush="Black" BorderThickness="2" VerticalAlignment="Center">
                     <TextBlock x:Name="txt_Tutorial" Background="White" Text="{Binding text}" TextWrapping="Wrap" />
                 </Border>
+                
                 <Button Grid.Row="1" Content=">" Background="White" BorderBrush="Black" BorderThickness="2" Click="Button_Click"/>
             </Grid>
             
